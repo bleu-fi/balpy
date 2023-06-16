@@ -6,7 +6,7 @@ import json
 
 
 def main():
-
+    network = "goerli"
     if len(sys.argv) < 2:
         print("Usage: python3", sys.argv[0], "/path/to/exitData.json")
         quit()
@@ -19,7 +19,7 @@ def main():
     with open(pathToExit) as f:
         exitData = jstyleson.load(f)
 
-    bal = balpy.balpy.balpy(exitData["network"])
+    bal = balpy.balpy.balpy(network)
 
     print()
     print("==============================================================")
@@ -40,11 +40,10 @@ def main():
     print()
 
     query = False
-    exitData.pop("network")
     output = bal.balExitPool(**exitData, query=query)
 
     if query:
-        print("queryJoin results:")
+        print("queryExit results:")
         print(json.dumps(output, indent=4))
 
 
