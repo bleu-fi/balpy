@@ -1527,13 +1527,12 @@ class balpy(object):
                     "address": poolAddress,
                     "amount": self.balConvertWeiToToken(poolAddress, bptAmountIn)
                 }
-		result["tokensOut"] = [
-			{
+		result["tokensOut"] = []
+		for address, amount in zip(tokens, tokensAmountsOut):
+			result["tokensOut"].append({
 				"address": address,
 				"amount": self.balConvertWeiToToken(address, amount)
-			}
-			for address, amount in zip(tokens, tokensAmountsOut)
-		]
+			})
 		return result
 
 	def balDoExitPool(self, poolId, address, exitPoolRequestTuple, gasFactor=1.05, gasPriceSpeed="average", nonceOverride=-1, gasEstimateOverride=-1, gasPriceGweiOverride=-1):
