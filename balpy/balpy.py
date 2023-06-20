@@ -4,7 +4,7 @@
 import copy
 import json
 import os
-# import requests
+import requests
 import time
 import sys
 import pkgutil
@@ -102,8 +102,7 @@ class balpy(object):
 						"kovan":	{"id":42,		"blockExplorerUrl":"kovan.etherscan.io",			"balFrontend":"kovan.balancer.fi/#/"	},
 						"polygon":	{"id":137,		"blockExplorerUrl":"polygonscan.com",				"balFrontend":"polygon.balancer.fi/#/"	},
 						"fantom":	{"id":250,		"blockExplorerUrl":"ftmscan.com",					"balFrontend":"app.beets.fi/#/"			},
-						"arbitrum":	{"id":42161,	"blockExplorerUrl":"arbiscan.io",					"balFrontend":"arbitrum.balancer.fi/#/"	},
-						"sepolia":  {"id":11155111,	"blockExplorerUrl":"sepolia.etherscan.io",													},
+						"arbitrum":	{"id":42161,	"blockExplorerUrl":"arbiscan.io",					"balFrontend":"arbitrum.balancer.fi/#/"	}
 					};
 
 	# ABIs and Deployment Addresses
