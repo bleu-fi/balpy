@@ -98,7 +98,7 @@ class balpy(object):
 						"ropsten":	{"id":3,		"blockExplorerUrl":"ropsten.etherscan.io"													},
 						"rinkeby":	{"id":4,		"blockExplorerUrl":"rinkeby.etherscan.io"													},
 						"goerli":	{"id":5,		"blockExplorerUrl":"goerli.etherscan.io"													},
-						"optimism":	{"id":10,		"blockExplorerUrl":"optimistic.etherscan.io"												},
+						"optimism":	{"id":10,		"blockExplorerUrl":"optimistic.etherscan.io"													},
 						"kovan":	{"id":42,		"blockExplorerUrl":"kovan.etherscan.io",			"balFrontend":"kovan.balancer.fi/#/"	},
 						"polygon":	{"id":137,		"blockExplorerUrl":"polygonscan.com",				"balFrontend":"polygon.balancer.fi/#/"	},
 						"fantom":	{"id":250,		"blockExplorerUrl":"ftmscan.com",					"balFrontend":"app.beets.fi/#/"			},
@@ -1675,23 +1675,23 @@ class balpy(object):
 		    userAddress, relayerAddress).call()
 		return hasApprovedRelayer
 
-	def balVaultSetAuthorizer(self, newAuthorizerAddress, isAsync=False, **buildTxKwargs):
+	def balVaultSetAuthorizer(self, newAuthorizerAddress, isAsync=False, gasFactor=1.05, gasPriceSpeed="average", nonceOverride=-1, gasEstimateOverride=-1, gasPriceGweiOverride=-1):
 		vault = self.balLoadContract("Vault")
 		setAuthorizerFn = vault.functions.newAuthorizer(newAuthorizerAddress)
-		tx = self.buildTx(setAuthorizerFn, **buildTxKwargs)
+		tx = self.buildTx(setAuthorizerFn, gasFactor, gasPriceSpeed, nonceOverride, gasEstimateOverride, gasPriceGweiOverride);
 		return self.sendTx(tx, isAsync)
 
-	def balVaultSetPaused(self, paused, isAsync, **buildTxKwargs):
+	def balVaultSetPaused(self, paused, isAsync=False, gasFactor=1.05, gasPriceSpeed="average", nonceOverride=-1, gasEstimateOverride=-1, gasPriceGweiOverride=-1):
 		vault = self.balLoadContract("Vault")
 		setPausedFn = vault.functions.setPaused(paused)
-		tx = self.buildTx(setPausedFn, **buildTxKwargs)
+		tx = self.buildTx(setPausedFn, gasFactor, gasPriceSpeed, nonceOverride, gasEstimateOverride, gasPriceGweiOverride);
 		return self.sendTx(tx, isAsync)
 
-	def balVaultSetRelayerApproval(self, senderAddress, relayerAddress, approved, isAsync=False, gasFactor=1.05, **buildTxKwargs):
+	def balVaultSetRelayerApproval(self, senderAddress, relayerAddress, approved, isAsync=False, gasFactor=1.05, gasPriceSpeed="average", nonceOverride=-1, gasEstimateOverride=-1, gasPriceGweiOverride=-1):
 		vault = self.balLoadContract("Vault")
 		setRelayerApprovalFn = vault.functions.setRelayerApproval(
 		    senderAddress, relayerAddress, approved)
-		tx = self.buildTx(setRelayerApprovalFn, gasFactor, **buildTxKwargs)
+		tx = self.buildTx(setRelayerApprovalFn, gasFactor, gasPriceSpeed, nonceOverride, gasEstimateOverride, gasPriceGweiOverride);
 		return self.sendTx(tx, isAsync)
 
 	def balVaultDoManageUserBalance(self, kind, token, amount, sender, recipient, isAsync=False, gasFactor=1.05, gasPriceSpeed="average", nonceOverride=-1, gasEstimateOverride=-1, gasPriceGweiOverride=-1):
