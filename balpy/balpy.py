@@ -1591,21 +1591,23 @@ class balpy(object):
 
 		poolAddress = self.balPooldIdToAddress(poolId)
 		exitKindValue = WeightedPoolExitKind[exitKind].value
-		bptAmount = self.balConvertTokensToWei([poolAddress], [float(exitDescription["bptAmount"])])[0]
 		userAddress = self.web3.toChecksumAddress(self.web3.eth.default_account)
 		tokenAddresses, amountsOut, minAmountsOut, tokenOut  = self.balSortTokensExitPool(tokens)
 
 		if exitKind == "EXACT_BPT_IN_FOR_ONE_TOKEN_OUT":
+			bptAmount = self.balConvertTokensToWei([poolAddress], [float(exitDescription["bptAmount"])])[0]
 			exitPoolRequestTuple = self.balFormatExitPoolRequestTupleExactBptInForOneTokenOut(
 				exitKindValue, tokenAddresses, bptAmount, tokenOut, minAmountsOut, toInternalBalance)
 		elif exitKind == "EXACT_BPT_IN_FOR_TOKENS_OUT":
+			bptAmount = self.balConvertTokensToWei([poolAddress], [float(exitDescription["bptAmount"])])[0]
 			exitPoolRequestTuple = self.balFormatExitPoolRequestTupleExactBptInForTokensOut(
 				exitKindValue, tokenAddresses, bptAmount, minAmountsOut, toInternalBalance)
 		elif exitKind == "BPT_IN_FOR_EXACT_TOKENS_OUT":
+			maxBptAmount = self.balConvertTokensToWei([poolAddress], [float(exitDescription["maxBptAmount"])])[0]
 			if query:
-				bptAmount = self.balConvertTokensToWei([poolAddress], [self.INFINITE])[0]
+				maxBptAmount = self.balConvertTokensToWei([poolAddress], [self.INFINITE])[0]
 			exitPoolRequestTuple = self.balFormatExitPoolRequestTupleBptInForExactTokensOut(
-				exitKindValue, tokenAddresses, bptAmount, amountsOut, minAmountsOut, toInternalBalance)
+				exitKindValue, tokenAddresses, maxBptAmount, amountsOut, minAmountsOut, toInternalBalance)
 
 		if query:
 			tokensSorted = exitPoolRequestTuple[0]
