@@ -10,7 +10,6 @@ import sys
 import pkgutil
 from decimal import *
 from functools import cache
-from typing import List
 import traceback
 
 # low level web3
