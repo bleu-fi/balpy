@@ -27,7 +27,12 @@ def main():
     print()
 
     poolAddress = bal.balPooldIdToAddress(exitData["poolId"])
-    if not bal.erc20HasSufficientBalances([poolAddress], [exitData["bptAmount"]]):
+    
+    neededBPTamount = exitData.get("bptAmount", 0)
+    if exitData["exitKind"] == "BPT_IN_FOR_EXACT_TOKENS_OUT":
+        neededBPTamount = exitData["maxBptAmount"]
+
+    if not bal.erc20HasSufficientBalances([poolAddress], [neededBPTamount]):
         print("Please fix your insufficient BPT balance before proceeding.")
         print("Quitting...")
         quit()
